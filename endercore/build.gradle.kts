@@ -13,7 +13,7 @@ val regiliteVersion: String by project
 
 dependencies {
     // Regilite
-    implementation("com.enderio:Regilite:${regiliteVersion}")
+    implementation("com.enderio:regilite:${regiliteVersion}")
 
     // TODO: How to apply plugin.
     compileOnly(project(":ensure_plugin"))

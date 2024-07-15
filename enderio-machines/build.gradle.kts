@@ -20,7 +20,7 @@ val graphlibVersion: String by project
 val graphlibVersionRange: String by project
 
 dependencies {
-    implementation("com.enderio:Regilite:$regiliteVersion")
+    implementation("com.enderio:regilite:$regiliteVersion")
 
     implementation(project(":enderio-base"))
     accessTransformers(project(":enderio-base"))

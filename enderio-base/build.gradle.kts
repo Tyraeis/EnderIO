@@ -25,8 +25,8 @@ val regiliteVersion: String by project
 val jeiVersion: String by project
 
 dependencies {
-    implementation("com.enderio:Regilite:$regiliteVersion")
-    jarJar("com.enderio:Regilite:$regiliteVersion")
+    implementation("com.enderio:regilite:$regiliteVersion")
+    jarJar("com.enderio:regilite:$regiliteVersion")
 
     compileOnly(project(":ensure_plugin"))
     implementation(project(":endercore"))

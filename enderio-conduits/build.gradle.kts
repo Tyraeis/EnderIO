@@ -28,7 +28,7 @@ val graphlibVersionRange: String by project
 val cctVersion: String by project
 
 dependencies {
-    implementation("com.enderio:Regilite:$regiliteVersion")
+    implementation("com.enderio:regilite:$regiliteVersion")
 
     implementation(project(":enderio-base"))
     accessTransformers(project(":enderio-base"))
