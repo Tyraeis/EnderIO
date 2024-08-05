@@ -21,45 +21,6 @@ sourceSets {
     }
 }
 
-val regiliteVersion: String by project
-val jeiMinecraftVersion: String by project
-val jeiVersion: String by project
-val graphlibVersion: String by project
-val graphlibVersionRange: String by project
-val cctMinecraftVersion: String by project
-val cctVersion: String by project
-
-dependencies {
-    implementation("com.enderio:Regilite:$regiliteVersion")
-
-    implementation(project(":enderio-base"))
-    accessTransformers(project(":enderio-base"))
-
-    compileOnly(project(":ensure_plugin"))
-
-    implementation(project(":endercore"))
-
-    // JEI
-    compileOnly("mezz.jei:jei-$jeiMinecraftVersion-common-api:$jeiVersion")
-    compileOnly("mezz.jei:jei-$jeiMinecraftVersion-neoforge-api:$jeiVersion")
-    runtimeOnly("mezz.jei:jei-$jeiMinecraftVersion-common:$jeiVersion")
-    runtimeOnly("mezz.jei:jei-$jeiMinecraftVersion-neoforge:$jeiVersion")
-
-    //CC-Tweaked
-    compileOnly("cc.tweaked:cc-tweaked-$cctMinecraftVersion-core-api:$cctVersion")
-    compileOnly("cc.tweaked:cc-tweaked-$cctMinecraftVersion-forge-api:$cctVersion")
-    // TODO: Does not start on latest NeoForge
-//    runtimeOnly("cc.tweaked:cc-tweaked-$minecraftVersion-forge:$cctVersion")
-
-    implementation("dev.gigaherz.graph:GraphLib3:$graphlibVersion")
-    jarJar("dev.gigaherz.graph:GraphLib3:$graphlibVersion") {
-        version {
-            strictly(graphlibVersionRange)
-            prefer(graphlibVersion)
-        }
-    }
-}
-
 neoForge {
     version = neoForgeVersion
 
@@ -103,6 +64,50 @@ neoForge {
 
         create("enderio_conduits") {
             sourceSet(sourceSets.getByName("main"))
+        }
+    }
+}
+
+val regiliteVersion: String by project
+val jeiMinecraftVersion: String by project
+val jeiVersion: String by project
+val graphlibVersion: String by project
+val graphlibVersionRange: String by project
+val cctMinecraftVersion: String by project
+val cctVersion: String by project
+
+dependencies {
+    implementation("com.enderio:Regilite:$regiliteVersion")
+
+    implementation(project(":enderio-base"))
+    accessTransformers(project(":enderio-base"))
+
+    compileOnly(project(":ensure_plugin"))
+
+    implementation(project(":endercore"))
+
+    // JEI
+    compileOnly("mezz.jei:jei-$jeiMinecraftVersion-common-api:$jeiVersion")
+    compileOnly("mezz.jei:jei-$jeiMinecraftVersion-neoforge-api:$jeiVersion")
+    runtimeOnly("mezz.jei:jei-$jeiMinecraftVersion-common:$jeiVersion")
+    runtimeOnly("mezz.jei:jei-$jeiMinecraftVersion-neoforge:$jeiVersion")
+
+    //CC-Tweaked
+    compileOnly("cc.tweaked:cc-tweaked-$cctMinecraftVersion-core-api:$cctVersion")
+    compileOnly("cc.tweaked:cc-tweaked-$cctMinecraftVersion-forge-api:$cctVersion")
+    // TODO: Does not start on latest NeoForge
+//    runtimeOnly("cc.tweaked:cc-tweaked-$minecraftVersion-forge:$cctVersion")
+
+    // For painting recipe.
+    // TODO: This isn't great.
+    compileOnly(project(":enderio-machines"))
+    runtimeOnly(project(":enderio-machines"))
+
+    implementation("dev.gigaherz.graph:GraphLib3:$graphlibVersion")
+    jarJar("dev.gigaherz.graph:GraphLib3:$graphlibVersion") {
+        version {
+            strictly(graphlibVersionRange)
+            prefer(graphlibVersion)
         }
     }
 }
