@@ -75,7 +75,7 @@ public class ConduitBlockItem extends BlockItem {
         BlockState blockState = level.getBlockState(blockpos);
         if (!blockState.isAir()) {
             //noinspection DataFlowIssue
-            return level.getBlockState(blockpos).useItemOn(context.getItemInHand(), level, player, context.getHand(), context.getHitResult()).result();
+            return blockState.useItemOn(context.getItemInHand(), level, player, context.getHand(), context.getHitResult().withPosition(blockpos)).result();
         }
 
         return super.place(context);
