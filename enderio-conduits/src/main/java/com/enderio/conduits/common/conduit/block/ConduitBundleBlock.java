@@ -1,5 +1,6 @@
 package com.enderio.conduits.common.conduit.block;
 
+import com.enderio.base.common.config.BaseConfig;
 import com.enderio.conduits.api.Conduit;
 import com.enderio.base.common.init.EIOCapabilities;
 import com.enderio.base.common.tag.EIOTags;
@@ -13,6 +14,7 @@ import com.enderio.conduits.common.conduit.RightClickAction;
 import com.enderio.conduits.common.conduit.connection.ConnectionState;
 import com.enderio.conduits.common.conduit.connection.DynamicConnectionState;
 import com.enderio.conduits.common.conduit.connection.StaticConnectionStates;
+import com.enderio.conduits.common.conduit.facades.FacadeType;
 import com.enderio.conduits.common.conduit.type.redstone.RedstoneConduitData;
 import com.enderio.conduits.common.init.ConduitBlockEntities;
 import com.enderio.conduits.common.init.ConduitCapabilities;
@@ -40,6 +42,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -165,6 +168,18 @@ public class ConduitBundleBlock extends Block implements EntityBlock, SimpleWate
     @Override
     protected VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return super.getVisualShape(state, level, pos, context);
+    }
+
+    @Override
+    public float getExplosionResistance(BlockState state, BlockGetter level, BlockPos pos, Explosion explosion) {
+        if (level.getBlockEntity(pos) instanceof ConduitBundleBlockEntity blockEntity) {
+            Optional<FacadeType> facadeTypeOptional = blockEntity.getBundle().facadeType();
+            if (facadeTypeOptional.isPresent() && facadeTypeOptional.get().isBlastResistant()) {
+                return BaseConfig.COMMON.BLOCKS.EXPLOSION_RESISTANCE.get().floatValue();
+            }
+        }
+
+        return super.getExplosionResistance(state, level, pos, explosion);
     }
 
     // region Block Interaction
